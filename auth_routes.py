@@ -1,9 +1,10 @@
 
-from flask import Blueprint, redirect, request, session
+from flask import Blueprint, redirect, render_template, request, session
 import urllib.parse
 import uuid
 
-from config import AUTHORIZATION_ENDPOINT, CLIENT_ID, REDIRECT_URI, SCOPES
+from app import logout
+from config import AUTHORIZATION_ENDPOINT, CLIENT_ID, LOGOUT_ENDPOINT, REDIRECT_URI, SCOPES
 from jwt_decoder import decode_id_token
 from token_service import exchange_code_for_token, refresh_access_token
 from graph_service import get_user_profile
@@ -64,7 +65,15 @@ def callback():
 
     session["user_session_id"] = user_session_id
     
-    return redirect("/profile")
+    #return redirect("/profile")
+    tokens = token_store.get(user_session_id)
+
+    return render_template(
+        "tokens.html",
+        access_token=tokens.get("access_token"),
+        id_token = tokens.get("id_token"),
+        refresh_token = tokens.get("refresh_token")
+    )
     
 
 
@@ -98,5 +107,20 @@ def profile():
         refresh_token = new_tokens.get("refresh_token")
 
         user_profile = get_user_profile("access_token")
+    
+    return render_template(
+         "profile.html",
+         profile=user_profile
+    )
+   # return user_profile
 
-    return user_profile
+@auth_bp.route("/logout")
+def logout():
+    session.clear()
+
+    logout_url=(
+        f"{LOGOUT_ENDPOINT}"
+        f"?post_logout_redirect_uri=http://localhost:5000"
+    )
+
+    return redirect(logout_url)

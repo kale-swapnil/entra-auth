@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, url_for, request
+from flask import Flask, session, redirect, url_for, request, render_template
 from config import CLIENT_ID
 from auth_routes import auth_bp
 
@@ -9,7 +9,7 @@ app.register_blueprint(auth_bp)
 
 @app.route("/")
 def home():
-    return "Oauth Home"
+    return render_template ("index.html")
 
 
 @app.route("/tokens")

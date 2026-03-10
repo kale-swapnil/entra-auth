@@ -17,3 +17,5 @@ AUTHORIZATION_ENDPOINT = f"{AUTHORITY}/oauth2/v2.0/authorize"
 TOKEN_ENDPOINT = f"{AUTHORITY}/oauth2/v2.0/token"
 
 GRAPH_API_ENDPOINT = "https://graph.microsoft.com/v1.0"
+
+LOGOUT_ENDPOINT = f"{AUTHORITY}/oauth2/v2.0/logout"
