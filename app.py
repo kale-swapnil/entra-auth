@@ -12,21 +12,13 @@ def home():
     return "Oauth Home"
 
 
-@app.route("/callback")
-def callback():
-    return "Callback not implemented yet"
-
 @app.route("/tokens")
 def tokens():
     return "Token view not implemented yet"
-
-@app.route("/profile")
-def profile():
-    return "Profile not implemented yet"
 
 @app.route("/logout")
 def logout():
     return "Logout not implemented yet"
 
 if __name__ == "__main__":
-    app.run(debug=True)   
+    app.run(debug=True, use_reloader=False)   
