@@ -3,7 +3,7 @@ from flask import Blueprint, redirect, render_template, request, session
 import urllib.parse
 import uuid
 
-from app import logout
+
 from config import AUTHORIZATION_ENDPOINT, CLIENT_ID, LOGOUT_ENDPOINT, REDIRECT_URI, SCOPES
 from jwt_decoder import decode_id_token
 from token_service import exchange_code_for_token, refresh_access_token
